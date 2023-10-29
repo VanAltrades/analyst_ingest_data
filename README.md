@@ -1,4 +1,4 @@
-# analyst_read_data
+# analyst_ingest_data
 ## Ingest 5 Essential Data Sources Like a Pro using Python [The Programmatic Analyst's Handbook]
 
 Analysts are tasked with finding meaningful insight from data in their domain.
@@ -31,7 +31,7 @@ Secondary Benfits:
 
 The Package Structure at a Glance:
 ```
-analyst_read_data
+analyst_ingest_data
 │   .gitignore
 │   demo.ipynb
 │
@@ -46,7 +46,7 @@ analyst_read_data
 │   │       en_historic_events.json
 │   │       text_product_data.txt
 │   │
-│   └───read_data
+│   └───ingest_data
 │       │   __init__.py
 │       │
 │       ├───api
@@ -85,10 +85,10 @@ This package's goal is to provide a template for analysts to extract various dat
 
 So how does the package allow analysts to work with the data we listed(structured files, unstructured files, API sources, scraped website sources, cloud data)?
 
-The code that allows analysts to extract these data exists within the `/src` (the directory that is used to name source code by many programmers) directory's sub-directory called `read_data`.
+The code that allows analysts to extract these data exists within the `/src` (the directory that is used to name source code by many programmers) directory's sub-directory called `ingest_data`.
 
 ```
-│   └───read_data
+│   └───ingest_data
 │       │   __init__.py
 │       │
 │       ├───api
@@ -154,7 +154,7 @@ This folder assists with importing our secret information and storing Python obj
 Finally, refer to the `demo.ipynb` Python notebook for quick and simple explanations on how to extract each data source using Python and this package's source code(which you can modify for your own needs).
 
 ```
-analyst_read_data
+analyst_ingest_data
 │   .gitignore
 │   demo.ipynb
 ```
@@ -195,7 +195,7 @@ Now how do analysts's leverage these functions from within the package?
 In the `demo.ipynb` file, you can see how the functions are imported (in relation to where `demo.ipynb` exists within the package structure) and used to extract the csv data as a Pandas DataFrame object.
 
 ```
-from src.read_data.structured.read import get_csv_data
+from src.ingest_data.structured.files import get_csv_data
 cpi = get_csv_data(".\src\data\CPIAUCSL.csv")
 ```
 
@@ -206,7 +206,7 @@ cpi = get_csv_data(".\src\data\CPIAUCSL.csv")
 The same process works for reading an excel file.
 
 ```
-from src.read_data.structured.read import get_excel_data
+from src.ingest_data.structured.files import get_excel_data
 cpi = get_excel_data(".\src\data\CPIAUCSL.xls")
 ```
 
@@ -219,7 +219,7 @@ With this technique, analysts are empowered to programatically load data in a pr
 To import JSON data. run:
 
 ```
-from src.read_data.structured.read import get_json_data
+from src.ingest_data.structured.files import get_json_data
 history = get_json_data(method="pandas",path=".\src\data\en_historic_events.json", orient="index")
 ```
 
@@ -254,7 +254,7 @@ def get_json_data(method, path, **kwargs):
 By using the `method="custom"` argument the JSON data is loaded per requirements.
 
 ```
-from src.read_data.structured.read import get_json_data
+from src.ingest_data.structured.files import get_json_data
 history = get_json_data(method="custom",path=".\src\data\en_historic_events.json", orient="index")
 ```
 
@@ -303,7 +303,7 @@ To read the text file and and apply structure to the data, the `text.py` file in
 3. Transform the dictionary to a Pandas DataFrame (`get_structured_dataframe()`).
 
 ```
-from src.read_data.unstructured.text import get_dict_from_txt, get_structured_dict, get_structured_dataframe
+from src.ingest_data.unstructured.text import get_dict_from_txt, get_structured_dict, get_structured_dataframe
 
 d_unstructured, unique_keys = get_dict_from_txt(".\\src\\data\\text_product_data.txt")
 
@@ -340,7 +340,7 @@ The `demo.ipynb` notebook contains an example of how to access the NewsAPI to lo
 
 ```
 from utils.api_utils import get_api_key
-from src.read_data.api.request import get_request_data
+from src.ingest_data.api.request import get_request_data
 
 url = "https://newsapi.org/v2/top-headlines"
 api_key = get_api_key(".\\config\\news_api_key.json","key")
@@ -397,7 +397,7 @@ def scrape_website(url):
 ```
 
 ```
-from src.read_data.scraped.beautifulsoup import scrape_website
+from src.ingest_data.scraped.beautifulsoup import scrape_website
 
 noaa = scrape_website("https://www.climate.gov/news-features/understanding-climate/2023-24-us-winter-outlook-wetter-south-warmer-north")
 noaa
@@ -432,7 +432,7 @@ def get_website_data(url):
 ```
 
 ```
-from src.read_data.scraped.beautifulsoup import get_website_data
+from src.ingest_data.scraped.beautifulsoup import get_website_data
 
 noaa_data = get_website_data("https://www.climate.gov/news-features/understanding-climate/2023-24-us-winter-outlook-wetter-south-warmer-north")
 noaa_data
@@ -488,7 +488,7 @@ Next we import the path to the credential file (`key_path`), and leverage the `p
 
 ```
 from utils.gcp_utils import key_path
-from src.read_data.cloud.google_sheet import get_google_sheet_data
+from src.ingest_data.cloud.google_sheet import get_google_sheet_data
 
 products = get_google_sheet_data(
     method="pygsheets", 
@@ -529,7 +529,7 @@ With the authenticated `client`, we import `client` and `get_bigquery_data()` to
 
 ```
 from utils.gcp_utils import client
-from src.read_data.cloud.gcp import get_bigquery_data
+from src.ingest_data.cloud.gcp import get_bigquery_data
 
 clickstream = get_bigquery_data("SELECT * FROM `{project}.{dataset}.{table}`", client)
 clickstream.head()
