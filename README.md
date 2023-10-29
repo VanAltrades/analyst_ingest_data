@@ -1,6 +1,8 @@
 # analyst_ingest_data
 ## Ingest 5 Essential Data Sources Like a Pro using Python [The Programmatic Analyst's Handbook]
 
+[Medium Article](https://medium.com/p/d041b128c5d0)
+
 Analysts are tasked with finding meaningful insight from data in their domain.
 
 Wrangling data from a mirade of sources and transforming it's content into meaningful information is a foundational task in providing value as an analyst.
