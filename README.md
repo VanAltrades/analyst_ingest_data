@@ -66,7 +66,7 @@ analyst_ingest_data
 │       │       __init__.py
 │       │
 │       ├───structured
-│       │       read.py
+│       │       files.py
 │       │       __init__.py
 │       │
 │       └───unstructured
@@ -108,7 +108,7 @@ The code that allows analysts to extract these data exists within the `/src` (th
 │       │       __init__.py
 │       │
 │       ├───structured
-│       │       read.py
+│       │       files.py
 │       │       __init__.py
 │       │
 │       └───unstructured
@@ -165,11 +165,11 @@ Common filetypes analysts must utilize include .csv, .excel, and .json files.The
 
 ```
 │       ├───structured
-│       │       read.py
+│       │       files.py
 │       │       __init__.py
 ```
 
-Within the `read.py` file exists functions to "get" these data as Pandas DataFrame objects.
+Within the `files.py` file exists functions to "get" these data as Pandas DataFrame objects.
 
 ```
 import pandas as pd
